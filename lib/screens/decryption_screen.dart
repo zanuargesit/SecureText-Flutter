@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../services/encryption_service.dart';
 
-class EncryptionScreen extends StatefulWidget {
-  const EncryptionScreen({Key? key}) : super(key: key);
+class DecryptionScreen extends StatefulWidget {
+  const DecryptionScreen({Key? key}) : super(key: key);
 
   @override
-  State<EncryptionScreen> createState() => _EncryptionScreenState();
+  State<DecryptionScreen> createState() => _DecryptionScreenState();
 }
 
-class _EncryptionScreenState extends State<EncryptionScreen> {
+class _DecryptionScreenState extends State<DecryptionScreen> {
   final _textController = TextEditingController();
   final _keyController = TextEditingController();
   final _resultController = TextEditingController();
@@ -23,7 +24,7 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
       backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
         title: const Text(
-          'Enkripsi Teks',
+          'Dekripsi Teks',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFF1E293B),
@@ -47,6 +48,7 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -68,18 +70,18 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF10B981).withOpacity(0.2),
+                            color: const Color(0xFF3B82F6).withOpacity(0.2),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Icon(
                             Icons.tune,
-                            color: Color(0xFF10B981),
+                            color: Color(0xFF3B82F6),
                             size: 20,
                           ),
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Metode Enkripsi',
+                          'Metode Dekripsi',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -123,6 +125,7 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
               ),
               const SizedBox(height: 20),
 
+
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -144,18 +147,18 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF3B82F6).withOpacity(0.2),
+                            color: const Color(0xFFEF4444).withOpacity(0.2),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Icon(
                             Icons.text_fields,
-                            color: Color(0xFF3B82F6),
+                            color: Color(0xFFEF4444),
                             size: 20,
                           ),
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Teks yang akan dienkripsi',
+                          'Teks yang akan didekripsi',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -170,21 +173,27 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                       maxLines: 4,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        hintText: 'Masukkan teks yang akan dienkripsi...',
+                        hintText: 'Masukkan teks yang akan didekripsi...',
                         hintStyle: TextStyle(color: Colors.grey[400]),
                         filled: true,
                         fillColor: const Color(0xFF1F2937),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF4B5563)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4B5563),
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF4B5563)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4B5563),
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF3B82F6)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFEF4444),
+                          ),
                         ),
                       ),
                     ),
@@ -192,7 +201,6 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-
 
               Container(
                 padding: const EdgeInsets.all(20),
@@ -211,63 +219,28 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF59E0B).withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(
-                                Icons.key,
-                                color: Color(0xFFF59E0B),
-                                size: 20,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              _selectedMethod == 'Caesar Cipher' ? 'Kunci (Angka)' : 'Kunci (Teks)',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
                         Container(
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFF59E0B), Color(0xFFD97706)],
-                            ),
+                            color: const Color(0xFFF59E0B).withOpacity(0.2),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: _generateKey,
-                              borderRadius: BorderRadius.circular(8),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    Icon(Icons.auto_awesome, size: 16, color: Colors.white),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      'Generate',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                          child: const Icon(
+                            Icons.key,
+                            color: Color(0xFFF59E0B),
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          _selectedMethod == 'Caesar Cipher'
+                              ? 'Kunci (Angka)'
+                              : 'Kunci (Teks)',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -288,15 +261,21 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                         fillColor: const Color(0xFF1F2937),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF4B5563)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4B5563),
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF4B5563)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4B5563),
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFF59E0B)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFF59E0B),
+                          ),
                         ),
                       ),
                     ),
@@ -309,12 +288,12 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
               Container(
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF10B981), Color(0xFF059669)],
+                    colors: [Color(0xFF3B82F6), Color(0xFF1D4ED8)],
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF10B981).withOpacity(0.3),
+                      color: const Color(0xFF3B82F6).withOpacity(0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -323,17 +302,17 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: _encrypt,
+                    onTap: _decrypt,
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
-                          Icon(Icons.lock, color: Colors.white),
+                          Icon(Icons.lock_open, color: Colors.white),
                           SizedBox(width: 12),
                           Text(
-                            'Enkripsi Teks',
+                            'Dekripsi Teks',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -348,7 +327,7 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
               ),
               const SizedBox(height: 20),
 
-             
+
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -373,18 +352,18 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF10B981).withOpacity(0.2),
+                                color: const Color(0xFF3B82F6).withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Icon(
                                 Icons.check_circle,
-                                color: Color(0xFF10B981),
+                                color: Color(0xFF3B82F6),
                                 size: 20,
                               ),
                             ),
                             const SizedBox(width: 12),
                             const Text(
-                              'Hasil Enkripsi',
+                              'Hasil Dekripsi',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -393,32 +372,19 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF3B82F6).withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: IconButton(
-                                onPressed: _copyResult,
-                                icon: const Icon(Icons.copy, color: Color(0xFF3B82F6)),
-                                tooltip: 'Salin hasil',
-                              ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF3B82F6).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: IconButton(
+                            onPressed: _copyResult,
+                            icon: const Icon(
+                              Icons.copy,
+                              color: Color(0xFF3B82F6),
                             ),
-                            const SizedBox(width: 8),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF59E0B).withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: IconButton(
-                                onPressed: _copyKey,
-                                icon: const Icon(Icons.key, color: Color(0xFFF59E0B)),
-                                tooltip: 'Salin kunci',
-                              ),
-                            ),
-                          ],
+                            tooltip: 'Salin hasil',
+                          ),
                         ),
                       ],
                     ),
@@ -429,17 +395,21 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
                       readOnly: true,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        hintText: 'Hasil enkripsi akan muncul di sini...',
+                        hintText: 'Hasil dekripsi akan muncul di sini...',
                         hintStyle: TextStyle(color: Colors.grey[400]),
                         filled: true,
                         fillColor: const Color(0xFF1F2937),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF4B5563)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4B5563),
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF4B5563)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4B5563),
+                          ),
                         ),
                       ),
                     ),
@@ -453,29 +423,14 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
     );
   }
 
-  void _generateKey() {
-    String key;
-    if (_selectedMethod == 'Caesar Cipher') {
-      key = EncryptionService.generateRandomNumber().toString();
-    } else {
-      key = EncryptionService.generateRandomKey();
-    }
-
-    setState(() {
-      _keyController.text = key;
-    });
-
-    _showMessage('Kunci berhasil di-generate!', isSuccess: true);
-  }
-
-  void _encrypt() {
+  void _decrypt() {
     if (_textController.text.isEmpty) {
-      _showMessage('Masukkan teks yang akan dienkripsi');
+      _showMessage('Masukkan teks yang akan didekripsi');
       return;
     }
 
     if (_keyController.text.isEmpty) {
-      _showMessage('Masukkan kunci enkripsi');
+      _showMessage('Masukkan kunci dekripsi');
       return;
     }
 
@@ -487,24 +442,28 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
           _showMessage('Kunci Caesar Cipher harus antara 1-25');
           return;
         }
-        result = EncryptionService.caesarEncrypt(_textController.text, shift);
+        result = EncryptionService.caesarDecrypt(_textController.text, shift);
       } else {
-        result = EncryptionService.base64Encrypt(_textController.text, _keyController.text);
+        result = EncryptionService.base64Decrypt(
+          _textController.text,
+          _keyController.text,
+        );
       }
 
       setState(() {
         _resultController.text = result;
       });
 
+   
       EncryptionService.saveToHistory(
         originalText: _textController.text,
         encryptedText: result,
         key: _keyController.text,
         method: _selectedMethod,
-        isEncryption: true,
+        isEncryption: false,
       );
 
-      _showMessage('Teks berhasil dienkripsi!', isSuccess: true);
+      _showMessage('Teks berhasil didekripsi!', isSuccess: true);
     } catch (e) {
       _showMessage('Error: ${e.toString()}');
     }
@@ -519,20 +478,13 @@ class _EncryptionScreenState extends State<EncryptionScreen> {
     }
   }
 
-  void _copyKey() {
-    if (_keyController.text.isNotEmpty) {
-      Clipboard.setData(ClipboardData(text: _keyController.text));
-      _showMessage('Kunci disalin ke clipboard!', isSuccess: true);
-    } else {
-      _showMessage('Tidak ada kunci untuk disalin');
-    }
-  }
-
   void _showMessage(String message, {bool isSuccess = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: isSuccess ? const Color(0xFF10B981) : const Color(0xFFEF4444),
+        backgroundColor: isSuccess
+            ? const Color(0xFF3B82F6)
+            : const Color(0xFFEF4444),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),

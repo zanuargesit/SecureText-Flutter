@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../services/auth_service.dart';
+import 'decryption_screen.dart';
 import 'encryption_screen.dart';
+import 'history_screen.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,23 +12,38 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
-        title: const Text('SecureText'),
-        backgroundColor: Colors.blue[600],
+        title: const Text(
+          'Encryption App',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
+        ),
+        backgroundColor: const Color(0xFF1E293B),
         foregroundColor: Colors.white,
+        elevation: 0,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => _showLogoutDialog(context),
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            child: IconButton(
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.logout, color: Colors.red, size: 20),
+              ),
+              onPressed: () => _showLogoutDialog(context),
+            ),
           ),
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.blue[50]!, Colors.white],
+            colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
           ),
         ),
         child: SafeArea(
@@ -34,73 +52,127 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.security,
-                          size: 64,
-                          color: Colors.blue[600],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Selamat Datang di SecureText',
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[600],
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Aplikasi enkripsi dan dekripsi teks yang aman dan mudah digunakan',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.grey[600],
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(32),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF3B82F6), Color(0xFF1D4ED8)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF3B82F6).withOpacity(0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.security,
+                          size: 48,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Selamat Datang!',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Amankan pesan Anda dengan enkripsi terbaik',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 32),
-                Text(
-                  'Fitur Utama',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                const SizedBox(height: 40),
+
+                
+                const Text(
+                  'Menu Utama',
+                  style: TextStyle(
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
+
                 Expanded(
                   child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
+                    crossAxisCount: 1,
                     mainAxisSpacing: 16,
+                    childAspectRatio: 3.5,
                     children: [
-                      _buildFeatureCard(
+                      _buildMenuCard(
                         context,
-                        Icons.lock,
-                        'Enkripsi Teks',
-                        'Amankan pesan Anda dengan enkripsi',
-                        Colors.green,
-                        () => _navigateToEncryption(context),
+                        icon: Icons.lock,
+                        title: 'Enkripsi Teks',
+                        subtitle: 'Amankan pesan dengan enkripsi',
+                        gradientColors: [
+                          const Color(0xFF10B981),
+                          const Color(0xFF059669),
+                        ],
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const EncryptionScreen(),
+                          ),
+                        ),
                       ),
-                  
-                      _buildFeatureCard(
+                      _buildMenuCard(
                         context,
-                        Icons.lock_open,
-                        'Dekripsi Teks',
-                        'Buka pesan yang dienkripsi',
-                        Colors.blue,
-                        () => _navigateToEncryption(context),
+                        icon: Icons.lock_open,
+                        title: 'Dekripsi Teks',
+                        subtitle: 'Buka pesan yang terenkripsi',
+                        gradientColors: [
+                          const Color(0xFF3B82F6),
+                          const Color(0xFF1D4ED8),
+                        ],
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const DecryptionScreen(),
+                          ),
+                        ),
                       ),
-                   
+                      _buildMenuCard(
+                        context,
+                        icon: Icons.history,
+                        title: 'Riwayat Enkripsi',
+                        subtitle: 'Lihat history enkripsi terakhir',
+                        gradientColors: [
+                          const Color(0xFF8B5CF6),
+                          const Color(0xFF7C3AED),
+                        ],
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HistoryScreen(),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -112,58 +184,82 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureCard(
-    BuildContext context,
-    IconData icon,
-    String title,
-    String description,
-    Color color,
-    VoidCallback onTap,
-  ) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
+  Widget _buildMenuCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required List<Color> gradientColors,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: gradientColors[0].withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 48,
-                color: color,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(icon, size: 32, color: Colors.white),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                description,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white.withOpacity(0.8),
+                  size: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  void _navigateToEncryption(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const EncryptionScreen()),
     );
   }
 
@@ -171,12 +267,20 @@ class HomeScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Keluar'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        backgroundColor: const Color(0xFF1E293B),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          'Keluar',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+          'Apakah Anda yakin ingin keluar?',
+          style: TextStyle(color: Colors.white70),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Batal'),
+            child: Text('Batal', style: TextStyle(color: Colors.grey[400])),
           ),
           TextButton(
             onPressed: () async {
@@ -186,7 +290,10 @@ class HomeScreen extends StatelessWidget {
                 (route) => false,
               );
             },
-            child: const Text('Keluar'),
+            child: const Text(
+              'Keluar',
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
